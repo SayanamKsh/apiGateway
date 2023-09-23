@@ -54,26 +54,30 @@ public class SecurityConfig implements WebFluxConfigurer{
     public MapReactiveUserDetailsService userDetailsService() {
     	List<UserDetails> users=new ArrayList<UserDetails>();
     	users.add(User.withDefaultPasswordEncoder().username("ksh").password("pass").roles("ADMIN").build());
+    	users.add(User.withDefaultPasswordEncoder().username("kshirabdhi@gmail.com").password("pass").roles("USER").build());
+    	users.add(User.withDefaultPasswordEncoder().username("sayanam@gmail.com").password("pass").roles("USER").build());
+    	users.add(User.withDefaultPasswordEncoder().username("user@gmail.com").password("pass").roles("USER").build());
 		//employee-management-service
-		ResponseEntity<List<Employee>> responseEntity = restTemplate.exchange(
-	            "http://localhost:8081/user/employee",
-	            HttpMethod.GET,
-	            null,
-	            new ParameterizedTypeReference<List<Employee>>() {} 
-	        );
-
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-        	List<Employee> employees = responseEntity.getBody();
-        	for (Employee employee : employees) {
-        		users.add(User.withDefaultPasswordEncoder()
-                        .username(employee.getEmail())
-                        .password(employee.getPassword())
-                        .roles("USER")
-                        .build());
-        	}
-            return new MapReactiveUserDetailsService(users);
-        } else {
-            return null;
-        }
+//		ResponseEntity<List<Employee>> responseEntity = restTemplate.exchange(
+//	            "http://localhost:8081/user/employee",
+//	            HttpMethod.GET,
+//	            null,
+//	            new ParameterizedTypeReference<List<Employee>>() {} 
+//	        );
+//
+//        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+//        	List<Employee> employees = responseEntity.getBody();
+//        	for (Employee employee : employees) {
+//        		users.add(User.withDefaultPasswordEncoder()
+//                        .username(employee.getEmail())
+//                        .password(employee.getPassword())
+//                        .roles("USER")
+//                        .build());
+//        	}
+//            return new MapReactiveUserDetailsService(users);
+//        } else {
+//            return null;
+//        }
+    	return new MapReactiveUserDetailsService(users);
     }
 }
